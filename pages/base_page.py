@@ -1,4 +1,4 @@
-from util.Locators import ShopPage
+from util.locators import ShopPage
 
 
 class BasePage:
