@@ -71,7 +71,7 @@ class TestEndToEnd(TestBase):
         page.element_click(ShopPage.CHOOSING_SIZE)
         #
         page.element_click(ShopPage.SIZE_M)
-
+        # TODO ИНТЕРЕСУЕТ ЭТО МЕСТО, как он может не видеть фрейм?
         assert page.find_need_element(ShopPage.FRAME), 'Iframe is not be found'
 
 
