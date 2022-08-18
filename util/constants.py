@@ -5,3 +5,9 @@ class Constants:
     NAME_USER = 'Jaide Saford'
     CHECKING_COLOR_BLACK = 'black'
     SIZE_M = 'M'
+
+
+
+
+    INFO_ABOUT_ORDER = 'Your order on My Store is complete.'
+    STATUS_ORDER_TEXT = 'On backorder'
