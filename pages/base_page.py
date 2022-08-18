@@ -25,8 +25,12 @@ class BasePage:
     def get_elements_text(self, locator):
         return self.find_need_element(locator).text
 
-    def switch_to_product_page(self, browser, locator):
+    def switch_to_frame(self, browser, locator):
         iframe = self.find_need_element(locator)
         browser.switch_to.frame(iframe)
+
+
+    def switch_to_default_content(self, browser):
+        browser.switch_to.default_content()
 
 

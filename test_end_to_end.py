@@ -12,6 +12,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 class TestEndToEnd(TestBase):
+    # убрать из названия тест, декоратор поможет?
     def test_open_site(self, browser):
         global page
         page = super().init_page(browser)
@@ -19,12 +20,13 @@ class TestEndToEnd(TestBase):
 
     def test_successful_login(self):
         super().get_to_log_in()
+        # вынести метод сюда, если он нигде больше не будет использоваться
         super().check_proper_user()
 
 
     # параметризовать??
     # choose some dresses
-    def test_add_to_basket(self, browser):
+    def test_add_to_cart(self, browser):
         # go to WOMEN section
         global page
         page.element_click(ShopPage.SECTION_WOMEN)
@@ -41,6 +43,9 @@ class TestEndToEnd(TestBase):
         f'Choosing Color is not {Constants.CHECKING_COLOR_BLACK}'
 
         # ФРЕЙМ товара
+
+        # TODO вынести в отдельный метод НАВЕДЕНИЯ МЫШИ НА ОБЪЕКТ И КЛИК ПО НЕМУ
+
         # Поместите элементы, над которыми нужно навести курсор
         hover_element = page.find_need_element(ShopPage.VIEW_PRODUCT_TOPS)
         hidden_bitton = page.find_need_element(ShopPage.BUTTON_QUICK_VIEW_BLOUSE)
@@ -50,15 +55,17 @@ class TestEndToEnd(TestBase):
         actions.click(hidden_bitton)
         actions.perform()
         #time.sleep(10)
+
+
         assert page.find_need_element(ShopPage.FRAME), 'Iframe is not be found'
-        page.switch_to_product_page(browser, ShopPage.FRAME)
+        page.switch_to_frame(browser, ShopPage.FRAME)
         # выбрать размер
         page.element_click(ShopPage.CHOOSING_SIZE_BLOUSE)
-        page.element_click(ShopPage.SIZE_M_BLOUSE)
+        page.element_click(ShopPage.SIZE_M_ARTICLE)
         # добавить в корзину
         page.element_click(ShopPage.BUTTON_ADD_TO_CART)
         #time.sleep(10)
-        browser.switch_to.default_content()
+        page.switch_to_default_content()
         time.sleep(10)
         # появилось окно с айди layer_cart
         assert page.find_need_element(ShopPage.WINDOW_WITH_ADDED_ITEMS), 'Window with added items is not be found'
@@ -95,15 +102,15 @@ class TestEndToEnd(TestBase):
         actions.perform()
         # time.sleep(10)
         assert page.find_need_element(ShopPage.FRAME), 'Iframe is not be found'
-        page.switch_to_product_page(browser, ShopPage.FRAME)
+        page.switch_to_frame(browser, ShopPage.FRAME)
         # выбрать размер и цвет
         page.element_click(ShopPage.CHOOSING_SIZE_DRESS)
-        page.element_click(ShopPage.SIZE_M_DRESS)
+        page.element_click(ShopPage.SIZE_M_ARTICLE)
         page.element_click(ShopPage.COLOR_DRESS)
         # добавить в корзину
         page.element_click(ShopPage.BUTTON_ADD_TO_CART)
         # time.sleep(10)
-        browser.switch_to.default_content()
+        page.switch_to_default_content()
         time.sleep(10)
         # появилось окно с айди layer_cart
         assert page.find_need_element(ShopPage.WINDOW_WITH_ADDED_ITEMS), 'Window with added items is not be found'
@@ -121,6 +128,8 @@ class TestEndToEnd(TestBase):
 
     def test_making_an_order(self):
 
+
+        # ЦИФРЫ И СЛОВА ВЫНЕСТИ В КОНСАНТЫ
         # проверить что в корзине действительно два товара
         assert "2" == page.get_elements_text(ShopPage.NUMBER_ITEMS_IN_CART), f'the number of products does not match -> ' \
                                                                              f'{page.get_elements_text(ShopPage.NUMBER_ITEMS_IN_CART)} != "2"'

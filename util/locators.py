@@ -23,7 +23,7 @@ class ShopPage:
     FRAME = (By.CSS_SELECTOR, ".fancybox-inner > iframe")
 
     CHOOSING_SIZE_BLOUSE = (By.ID, 'uniform-group_1')
-    SIZE_M_BLOUSE = ((By.XPATH, "//option[@title='M']"))
+    SIZE_M_ARTICLE = ((By.XPATH, "//option[@title='M']"))
 
     BUTTON_ADD_TO_CART = (By.CSS_SELECTOR, ".exclusive")
     WINDOW_WITH_ADDED_ITEMS = (By.CSS_SELECTOR, "#layer_cart")
@@ -36,7 +36,7 @@ class ShopPage:
     CHECKBOX_OF_MIDI_DRESS = (By.ID, 'uniform-layered_id_feature_20')
     VIEW_PRODUCT_DRESS = ((By.CLASS_NAME, 'first-item-of-tablet-line'))
     CHOOSING_SIZE_DRESS = (By.ID, 'group_1')
-    SIZE_M_DRESS = ((By.XPATH, "//option[@title='M']"))
+
     COLOR_DRESS = (By.ID, 'color_15')
 
     NUMBER_ITEMS_IN_CART = (By.XPATH, '//a/span[@class="ajax_cart_quantity"]')
