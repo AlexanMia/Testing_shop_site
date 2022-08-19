@@ -33,4 +33,6 @@ class BasePage:
     def switch_to_default_content(self, browser):
         browser.switch_to.default_content()
 
+    def is_element_selected(self, locator):
+        return self.find_need_element(locator).is_selected()
 

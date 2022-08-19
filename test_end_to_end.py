@@ -1,5 +1,6 @@
 import time
 
+import pytest
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
@@ -12,8 +13,9 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 class TestEndToEnd(TestBase):
-    # убрать из названия тест, декоратор поможет?
-    def test_open_site(self, browser):
+
+    @pytest.fixture(scope='class', autouse=True)
+    def open_site(self, browser):
         global page
         page = super().init_page(browser)
         super().open_page()
@@ -24,150 +26,186 @@ class TestEndToEnd(TestBase):
         super().check_proper_user()
 
 
+
+    @pytest.mark.parametrize('loc_section_women,'
+                             'loc_subcateg_tops,'
+                             'loc_colour_black,'
+                             'const_color_black,'
+                             'loc_choosing_color_logs,'
+                             'color_black_product,'
+                             'frame_article_loc_hover,'
+                             'frame_article_loc_hidden,'
+                             'frame,'
+                             'list_of_size,'
+                             'size_M,'
+                             'button_add_to_cart,'
+                             'window_with_added_items,'
+                             'text_about_succeessful_adding,'
+                             'expected_col_and_size,'
+                             'actual_col_and_size,'
+                             'button_continue_shopping', [
+        (ShopPage.SECTION_WOMEN,
+         ShopPage.CATEG_TOPS,
+         ShopPage.COLOR_BLACK,
+         Constants.CHECKING_COLOR_BLACK,
+         ShopPage.CHOOSSING_FILTERS_LOGS,
+         ShopPage.COLOR_BLACK_PRODUCT,
+         ShopPage.VIEW_PRODUCT_TOPS,
+         ShopPage.BUTTON_QUICK_VIEW_BLOUSE,
+         ShopPage.FRAME,
+         ShopPage.CHOOSING_SIZE_BLOUSE,
+         ShopPage.SIZE_M_ARTICLE,
+         ShopPage.BUTTON_ADD_TO_CART,
+         ShopPage.WINDOW_WITH_ADDED_ITEMS,
+         ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING,
+         Constants.EXPECTED_COLORS_AND_SIZE_OF_BLOUSE,
+         ShopPage.ATTRIBUTES_OF_ITEMS,
+         ShopPage.BUTTON_CONTINUE_SHOPPING)
+    ])
     # параметризовать??
     # choose some dresses
-    def test_add_to_cart(self, browser):
-        # go to WOMEN section
+    def test_add_to_cart(self, browser, loc_section_women,
+                         loc_subcateg_tops,
+                         loc_colour_black,
+                         const_color_black,
+                         loc_choosing_color_logs,
+                         color_black_product,
+                         frame_article_loc_hover,
+                         frame_article_loc_hidden,
+                         frame,
+                         list_of_size,
+                         size_M,
+                         button_add_to_cart,
+                         window_with_added_items,
+                         text_about_succeessful_adding,
+                         expected_col_and_size,
+                         actual_col_and_size,
+                         button_continue_shopping):
+
         global page
-        page.element_click(ShopPage.SECTION_WOMEN)
-        # go to Subcategories TOPS
-        page.element_click(ShopPage.SUBCATEG_TOPS)
-        # choose color of blouse
-        page.element_click(ShopPage.COLOR_BLACK)
+        page.element_click(loc_section_women)
+
+        page.element_click(loc_subcateg_tops)
+
+        page.element_click(loc_colour_black)
+
         # time.sleep(10)
         # WebDriverWait(browser, 10).until(EC.presence_of_element_located(ShopPage.CHOOSSING_COLOR_BLACK))
-        assert Constants.CHECKING_COLOR_BLACK.capitalize() in page.get_elements_text(ShopPage.CHOOSSING_COLOR_BLACK), \
-            f'{Constants.CHECKING_COLOR_BLACK } is not chosen'
 
-        assert Constants.CHECKING_COLOR_BLACK in page.find_need_element(ShopPage.COLOR_BLACK_PRODUCT).get_attribute('href'), \
+        assert const_color_black.capitalize() in page.get_elements_text(loc_choosing_color_logs), \
+            f'{Constants.CHECKING_COLOR_BLACK} is not chosen'
+
+        assert const_color_black in page.find_need_element(color_black_product).get_attribute('href'), \
         f'Choosing Color is not {Constants.CHECKING_COLOR_BLACK}'
 
         # ФРЕЙМ товара
+        super().hover_to_click_hidden_button(browser, frame_article_loc_hover, frame_article_loc_hidden)
 
-        # TODO вынести в отдельный метод НАВЕДЕНИЯ МЫШИ НА ОБЪЕКТ И КЛИК ПО НЕМУ
+        assert page.find_need_element(frame), 'Iframe is not be found'
+        page.switch_to_frame(browser, frame)
 
-        # Поместите элементы, над которыми нужно навести курсор
-        hover_element = page.find_need_element(ShopPage.VIEW_PRODUCT_TOPS)
-        hidden_bitton = page.find_need_element(ShopPage.BUTTON_QUICK_VIEW_BLOUSE)
-        # Выполните операцию наведения на элемент
-        actions = ActionChains(browser)
-        actions.move_to_element(hover_element)
-        actions.click(hidden_bitton)
-        actions.perform()
+        page.element_click(list_of_size)
+        page.element_click(size_M)
+
+        page.element_click(button_add_to_cart)
         #time.sleep(10)
-
-
-        assert page.find_need_element(ShopPage.FRAME), 'Iframe is not be found'
-        page.switch_to_frame(browser, ShopPage.FRAME)
-        # выбрать размер
-        page.element_click(ShopPage.CHOOSING_SIZE_BLOUSE)
-        page.element_click(ShopPage.SIZE_M_ARTICLE)
-        # добавить в корзину
-        page.element_click(ShopPage.BUTTON_ADD_TO_CART)
-        #time.sleep(10)
-        page.switch_to_default_content()
+        page.switch_to_default_content(browser)
         time.sleep(10)
-        # появилось окно с айди layer_cart
-        assert page.find_need_element(ShopPage.WINDOW_WITH_ADDED_ITEMS), 'Window with added items is not be found'
-        # подтверждение добавления в корзину надпись Product successfully added to your shopping cart h2 с текстом successfully added
-        assert 'successfully added' in page.get_elements_text(ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING), \
-            f'Expected text successfully added is not in {page.get_elements_text(ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING)}'
-        # нужный цвет и нужный размер id = layer_cart_product_attributes текст Black, M
-        assert 'Black, M' in page.get_elements_text(ShopPage.ATTRIBUTES_OF_ITEMS), \
+
+        assert page.find_need_element(window_with_added_items), 'Window with added items is not be found'
+
+        assert Constants.EXPECTED_TEXT_ABOUT_ADDING_ITEMS in page.get_elements_text(text_about_succeessful_adding), \
+            f'Expected text {Constants.EXPECTED_TEXT_ABOUT_ADDING_ITEMS} is not in {page.get_elements_text(ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING)}'
+
+        assert Constants.EXPECTED_COLORS_AND_SIZE_OF_BLOUSE in page.get_elements_text(actual_col_and_size), \
             f'Black, M != {page.get_elements_text(ShopPage.ATTRIBUTES_OF_ITEMS)}'
-        # нажать кнопку Continue shopping class = continue btn btn-default button exclusive-medium
-        page.element_click(ShopPage.BUTTON_CONTINUE_SHOPPING)
+
+        page.element_click(button_continue_shopping)
         time.sleep(10)
 
 
-        # добавить еще 2-3 товара с использованием разных фильтров
-        # перейти в раздел Women
+
+        # new section
         page.element_click(ShopPage.SECTION_WOMEN)
-        # перейти в раздел  платья
+
         page.element_click(ShopPage.CATEG_DRESSES)
-        # перейти в подраздел летние платья
-        page.element_click(ShopPage.SUBCATEG_SUMMER_DRESSES)
-        # выбрать чекбокс с миди платьями
+        # TODO ОТЛИЧИЕ!!!!!
+        #page.element_click(ShopPage.SUBCATEG_SUMMER_DRESSES)
+
         page.element_click(ShopPage.CHECKBOX_OF_MIDI_DRESS)
         time.sleep(10)
+        # //span[@class]/input[@type='checkbox' and @class='checkbox' ]
+        assert page.is_element_selected(ShopPage.CHECKBOX_OF_MIDI_DRESS_2), 'Length is not choosen'
+        assert Constants.CHECKING_MIDI_DRESS in page.get_elements_text(ShopPage.CHOOSSING_FILTERS_LOGS), \
+            f'{Constants.CHECKING_MIDI_DRESS} is not chosen'
+
+
+
+
 
         # ФРЕЙМ товара
-        # Поместите элементы, над которыми нужно навести курсор
-        hover_element = page.find_need_element(ShopPage.VIEW_PRODUCT_DRESS)
-        hidden_bitton = page.find_need_element(ShopPage.BUTTON_QUICK_VIEW_BLOUSE)
-        # Выполните операцию наведения на элемент
-        actions = ActionChains(browser)
-        actions.move_to_element(hover_element)
-        actions.click(hidden_bitton)
-        actions.perform()
-        # time.sleep(10)
+        super().hover_to_click_hidden_button(browser, ShopPage.VIEW_PRODUCT_DRESS, ShopPage.BUTTON_QUICK_VIEW_BLOUSE)
+
         assert page.find_need_element(ShopPage.FRAME), 'Iframe is not be found'
         page.switch_to_frame(browser, ShopPage.FRAME)
-        # выбрать размер и цвет
+
         page.element_click(ShopPage.CHOOSING_SIZE_DRESS)
         page.element_click(ShopPage.SIZE_M_ARTICLE)
         page.element_click(ShopPage.COLOR_DRESS)
-        # добавить в корзину
+
         page.element_click(ShopPage.BUTTON_ADD_TO_CART)
         # time.sleep(10)
-        page.switch_to_default_content()
+        page.switch_to_default_content(browser)
         time.sleep(10)
-        # появилось окно с айди layer_cart
+
         assert page.find_need_element(ShopPage.WINDOW_WITH_ADDED_ITEMS), 'Window with added items is not be found'
-        # подтверждение добавления в корзину надпись Product successfully added to your shopping cart h2
-        # с текстом successfully added
-        assert 'successfully added' in page.get_elements_text(ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING), \
-        f'Expected text successfully added is not in {page.get_elements_text(ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING)}'
-        # нужный цвет и нужный размер id = layer_cart_product_attributes текст Black, M
-        assert 'Green, M' in page.get_elements_text(ShopPage.ATTRIBUTES_OF_ITEMS), \
-        f'Green, M != {page.get_elements_text(ShopPage.ATTRIBUTES_OF_ITEMS)}'
-        # нажать кнопку Continue shopping class = continue btn btn-default button exclusive-medium
+
+
+        assert Constants.EXPECTED_TEXT_ABOUT_ADDING_ITEMS in page.get_elements_text(ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING), \
+        f'Expected text {Constants.EXPECTED_TEXT_ABOUT_ADDING_ITEMS} is not in {page.get_elements_text(ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING)}'
+
+        assert Constants.EXPECTED_COLORS_AND_SIZE_OF_DRESS in page.get_elements_text(ShopPage.ATTRIBUTES_OF_ITEMS), \
+        f'{Constants.EXPECTED_COLORS_AND_SIZE_OF_DRESS} != {page.get_elements_text(ShopPage.ATTRIBUTES_OF_ITEMS)}'
+
         page.element_click(ShopPage.BUTTON_CONTINUE_SHOPPING)
         time.sleep(10)
-        browser.switch_to.default_content()
+        #browser.switch_to.default_content()
 
     def test_making_an_order(self):
+        assert Constants.NUMBER_OF_ITEMS_IN_CART  == page.get_elements_text(ShopPage.NUMBER_ITEMS_IN_CART), \
+            f'the number of products does not match -> {page.get_elements_text(ShopPage.NUMBER_ITEMS_IN_CART)} != {Constants.NUMBER_OF_ITEMS_IN_CART}'
 
-
-        # ЦИФРЫ И СЛОВА ВЫНЕСТИ В КОНСАНТЫ
-        # проверить что в корзине действительно два товара
-        assert "2" == page.get_elements_text(ShopPage.NUMBER_ITEMS_IN_CART), f'the number of products does not match -> ' \
-                                                                             f'{page.get_elements_text(ShopPage.NUMBER_ITEMS_IN_CART)} != "2"'
-        # div class shopping_cart -> span class ajax_cart_quantity
-        # перейти в корзину а title View my shopping cart
         page.element_click(ShopPage.CART)
 
-        # проверить что в корзине лежат нужные товары tr class cart_item last_item address_733041 even, a text Printed Chiffon Dress
-        # tr class cart_item first_item address_733041 odd, a text Blouse
         assert page.find_need_element(Cart.BLOUSE) and page.find_need_element(Cart.PRINTED_CHIFFON_DRESS)
-        # увеличить количество платьев до 2 id cart_quantity_up_7_38_0_733041
+
         page.element_click(Cart.INCREASE_QUANTITY_OF_DRESSES)
-        assert '2' == page.find_need_element(Cart.ACTUAL_QUANTITY).get_attribute("value"), \
-            f'the number of dresses does not match -> {page.find_need_element(Cart.ACTUAL_QUANTITY).get_attribute("value")} != "2"'
-        # нажать кнопку Proceed to checkout a class standard-checkout
+        assert Constants.NUMBER_OF_DRESSES_IN_CART == page.find_need_element(Cart.ACTUAL_QUANTITY).get_attribute("value"), \
+            f'the number of dresses does not match -> {page.find_need_element(Cart.ACTUAL_QUANTITY).get_attribute("value")} != {Constants.NUMBER_OF_DRESSES_IN_CART}'
+
         page.element_click(Cart.BUTTON_PROCEED_TO_CHECKOUT)
 
-        # снова нажать кнопку //button[@class = 'button btn btn-default button-medium']
+
         page.element_click(Cart.BUTTON_PROCEED_TO_CHECKOUT_ADDRESS)
-        # agree with terms //input[@id = 'cgv']
+
         page.element_click(Cart.AGREEMENT_WITH_TERMS)
 
-        # нажать кнопку Proceed to checkout a class standard-checkout
+
         page.element_click(Cart.BUTTON_PROCEED_TO_CHECKOUT_SHIPPING)
-        # choose kind of payment //a[@class = 'bankwire'] CLICK
+
         page.element_click(Cart.PAYMENT_BY_BANK_WIRE)
 
-        # confirm your order //span[text()='I confirm my order'] CLICK
+
         page.element_click(Cart.BUTTON_CONFIRM_ORDER)
-        # check information about order class cheque-indent взять оттуда текст и проверить вхождение туда слов Your order on My Store is complete.
+
         assert Constants.INFO_ABOUT_ORDER == page.get_elements_text(Cart.INFO_ABOUT_ORDER), \
             f'Expected text {Constants.INFO_ABOUT_ORDER} is not equal {page.get_elements_text(Cart.INFO_ABOUT_ORDER)}'
-        # посмотреть свои заказы нажать на кнопку Back to orders: a class button-exclusive
+
         page.element_click(Cart.BUTTON_BACK_TO_ORDERS)
-        # найти столбец с предварительным заказом class history_state с текстом On backorder
+
         assert Constants.STATUS_ORDER_TEXT == page.get_elements_text(Cart.STATUS_OF_ORDER), \
             f'Expected status {Constants.STATUS_ORDER_TEXT} is not equal actual status {page.get_elements_text(Cart.STATUS_OF_ORDER)}'
-        # нажать на кпнку домой //li/a[@class='btn btn-default button button-small']/span[text()=' Home']
+
         page.element_click(Cart.BUTTON_HOME)
 
 

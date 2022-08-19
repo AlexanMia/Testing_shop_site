@@ -11,11 +11,14 @@ class MainPage:
 class ShopPage:
     SECTION_WOMEN = (By.XPATH, "//a[text()='Women']")
 
-    SUBCATEG_TOPS = (By.CLASS_NAME, 'subcategory-image')
+    CATEG_TOPS = (By.CLASS_NAME, 'subcategory-image')
     COLOR_BLACK = (By.ID, 'layered_id_attribute_group_11')
     COLOR_BLACK_PRODUCT = (By.ID, 'color_7')
+
+    # TODO WHAT IS IT
     ENABLED_FILTERS = (By.ID, 'enabled_filters')
-    CHOOSSING_COLOR_BLACK = (By.XPATH, "//div[@id='enabled_filters']//li")
+
+    CHOOSSING_FILTERS_LOGS = (By.XPATH, "//div[@id='enabled_filters']//li")
 
     VIEW_PRODUCT_TOPS = (By.CLASS_NAME, 'first-item-of-tablet-line')
     BUTTON_QUICK_VIEW_BLOUSE = (By.CLASS_NAME, 'quick-view')
@@ -28,12 +31,14 @@ class ShopPage:
     BUTTON_ADD_TO_CART = (By.CSS_SELECTOR, ".exclusive")
     WINDOW_WITH_ADDED_ITEMS = (By.CSS_SELECTOR, "#layer_cart")
     TEXT_ABOUT_SUCCESSFUL_ADDING = ((By.XPATH, "//h2"))
+
     ATTRIBUTES_OF_ITEMS = (By.ID, 'layer_cart_product_attributes')
     BUTTON_CONTINUE_SHOPPING = (By.CLASS_NAME, 'exclusive-medium')
 
     CATEG_DRESSES = (By.XPATH, "//div/a[@title='Dresses']")
     SUBCATEG_SUMMER_DRESSES = (By.XPATH, "//div/a[@title='Summer Dresses']")
     CHECKBOX_OF_MIDI_DRESS = (By.ID, 'uniform-layered_id_feature_20')
+    CHECKBOX_OF_MIDI_DRESS_2 = (By.XPATH, "//span[@class]/input[@type='checkbox' and @class='checkbox']")
     VIEW_PRODUCT_DRESS = ((By.CLASS_NAME, 'first-item-of-tablet-line'))
     CHOOSING_SIZE_DRESS = (By.ID, 'group_1')
 

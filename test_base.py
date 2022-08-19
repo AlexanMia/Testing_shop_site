@@ -1,3 +1,7 @@
+import time
+
+from selenium.webdriver import ActionChains
+
 from pages.base_page import BasePage
 from util.constants import Constants
 from util.locators import MainPage
@@ -28,3 +32,14 @@ class TestBase:
 
     # def is_element_present(self, locator):
     #     return self.find_need_element(locator)
+    def hover_to_click_hidden_button(self, browser, locator_hover_element, locator_hidden_element):
+        # # Поместите элементы, над которыми нужно навести курсор
+        hover_element = page.find_need_element(locator_hover_element)
+        hidden_button = page.find_need_element(locator_hidden_element)
+
+         # Выполните операцию наведения на элемент
+        actions = ActionChains(browser)
+        actions.move_to_element(hover_element)
+        actions.click(hidden_button)
+        actions.perform()
+        time.sleep(10)

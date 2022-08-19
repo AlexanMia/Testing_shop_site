@@ -5,6 +5,12 @@ class Constants:
     NAME_USER = 'Jaide Saford'
     CHECKING_COLOR_BLACK = 'black'
     SIZE_M = 'M'
+    EXPECTED_COLORS_AND_SIZE_OF_BLOUSE = 'Black, M'
+    EXPECTED_TEXT_ABOUT_ADDING_ITEMS = "successfully added"
+    NUMBER_OF_ITEMS_IN_CART = "2"
+    NUMBER_OF_DRESSES_IN_CART = "2"
+    CHECKING_MIDI_DRESS = 'Midi Dress'
+    EXPECTED_COLORS_AND_SIZE_OF_DRESS = 'Green, M'
 
 
 
