@@ -15,9 +15,6 @@ class ShopPage:
     COLOR_BLACK = (By.ID, 'layered_id_attribute_group_11')
     COLOR_BLACK_PRODUCT = (By.ID, 'color_7')
 
-    # TODO WHAT IS IT
-    ENABLED_FILTERS = (By.ID, 'enabled_filters')
-
     CHOOSSING_FILTERS_LOGS = (By.XPATH, "//div[@id='enabled_filters']//li")
 
     VIEW_PRODUCT_TOPS = (By.CLASS_NAME, 'first-item-of-tablet-line')
@@ -30,7 +27,8 @@ class ShopPage:
 
     BUTTON_ADD_TO_CART = (By.CSS_SELECTOR, ".exclusive")
     WINDOW_WITH_ADDED_ITEMS = (By.CSS_SELECTOR, "#layer_cart")
-    TEXT_ABOUT_SUCCESSFUL_ADDING = ((By.XPATH, "//h2"))
+    #TEXT_ABOUT_SUCCESSFUL_ADDING = ((By.XPATH, "//h2"))
+    TEXT_ABOUT_SUCCESSFUL_ADDING = (By.XPATH, "//div[@class='layer_cart_product col-xs-12 col-md-6']/h2")
 
     ATTRIBUTES_OF_ITEMS = (By.ID, 'layer_cart_product_attributes')
     BUTTON_CONTINUE_SHOPPING = (By.CLASS_NAME, 'exclusive-medium')

@@ -2,7 +2,7 @@ from util.locators import ShopPage
 
 
 class BasePage:
-    def __init__(self, browser, url, timeout=20):
+    def __init__(self, browser, url, timeout=30):
         self.browser = browser
         self.url = url
         self.browser.implicitly_wait(timeout)
@@ -28,7 +28,6 @@ class BasePage:
     def switch_to_frame(self, browser, locator):
         iframe = self.find_need_element(locator)
         browser.switch_to.frame(iframe)
-
 
     def switch_to_default_content(self, browser):
         browser.switch_to.default_content()

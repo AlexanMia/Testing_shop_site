@@ -1,19 +1,14 @@
 import time
 
 import pytest
-from selenium.webdriver import ActionChains
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
-
+from selenium.webdriver.support import expected_conditions as EC
 from test_base import TestBase
 from util.constants import Constants
 from util.locators import ShopPage, Cart
 
-from selenium.webdriver.support import expected_conditions as EC
-
 
 class TestEndToEnd(TestBase):
-
     @pytest.fixture(scope='class', autouse=True)
     def open_site(self, browser):
         global page
@@ -25,123 +20,63 @@ class TestEndToEnd(TestBase):
         # вынести метод сюда, если он нигде больше не будет использоваться
         super().check_proper_user()
 
-
-
-    @pytest.mark.parametrize('loc_section_women,'
-                             'loc_subcateg_tops,'
-                             'loc_colour_black,'
-                             'const_color_black,'
-                             'loc_choosing_color_logs,'
-                             'color_black_product,'
-                             'frame_article_loc_hover,'
-                             'frame_article_loc_hidden,'
-                             'frame,'
-                             'list_of_size,'
-                             'size_M,'
-                             'button_add_to_cart,'
-                             'window_with_added_items,'
-                             'text_about_succeessful_adding,'
-                             'expected_col_and_size,'
-                             'actual_col_and_size,'
-                             'button_continue_shopping', [
-        (ShopPage.SECTION_WOMEN,
-         ShopPage.CATEG_TOPS,
-         ShopPage.COLOR_BLACK,
-         Constants.CHECKING_COLOR_BLACK,
-         ShopPage.CHOOSSING_FILTERS_LOGS,
-         ShopPage.COLOR_BLACK_PRODUCT,
-         ShopPage.VIEW_PRODUCT_TOPS,
-         ShopPage.BUTTON_QUICK_VIEW_BLOUSE,
-         ShopPage.FRAME,
-         ShopPage.CHOOSING_SIZE_BLOUSE,
-         ShopPage.SIZE_M_ARTICLE,
-         ShopPage.BUTTON_ADD_TO_CART,
-         ShopPage.WINDOW_WITH_ADDED_ITEMS,
-         ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING,
-         Constants.EXPECTED_COLORS_AND_SIZE_OF_BLOUSE,
-         ShopPage.ATTRIBUTES_OF_ITEMS,
-         ShopPage.BUTTON_CONTINUE_SHOPPING)
-    ])
-    # параметризовать??
-    # choose some dresses
-    def test_add_to_cart(self, browser, loc_section_women,
-                         loc_subcateg_tops,
-                         loc_colour_black,
-                         const_color_black,
-                         loc_choosing_color_logs,
-                         color_black_product,
-                         frame_article_loc_hover,
-                         frame_article_loc_hidden,
-                         frame,
-                         list_of_size,
-                         size_M,
-                         button_add_to_cart,
-                         window_with_added_items,
-                         text_about_succeessful_adding,
-                         expected_col_and_size,
-                         actual_col_and_size,
-                         button_continue_shopping):
-
+    def test_add_to_cart_blouse_with_definite_filter_color(self, browser):
         global page
-        page.element_click(loc_section_women)
+        page.element_click(ShopPage.SECTION_WOMEN)
 
-        page.element_click(loc_subcateg_tops)
+        page.element_click(ShopPage.CATEG_TOPS)
 
-        page.element_click(loc_colour_black)
+        page.element_click(ShopPage.COLOR_BLACK)
 
         # time.sleep(10)
         # WebDriverWait(browser, 10).until(EC.presence_of_element_located(ShopPage.CHOOSSING_COLOR_BLACK))
 
-        assert const_color_black.capitalize() in page.get_elements_text(loc_choosing_color_logs), \
+        assert Constants.CHECKING_COLOR_BLACK.capitalize() in page.get_elements_text(ShopPage.CHOOSSING_FILTERS_LOGS), \
             f'{Constants.CHECKING_COLOR_BLACK} is not chosen'
 
-        assert const_color_black in page.find_need_element(color_black_product).get_attribute('href'), \
+        assert Constants.CHECKING_COLOR_BLACK in page.find_need_element(ShopPage.COLOR_BLACK_PRODUCT).get_attribute('href'), \
         f'Choosing Color is not {Constants.CHECKING_COLOR_BLACK}'
 
         # ФРЕЙМ товара
-        super().hover_to_click_hidden_button(browser, frame_article_loc_hover, frame_article_loc_hidden)
+        super().hover_to_click_hidden_button(browser, ShopPage.VIEW_PRODUCT_TOPS, ShopPage.BUTTON_QUICK_VIEW_BLOUSE)
 
-        assert page.find_need_element(frame), 'Iframe is not be found'
-        page.switch_to_frame(browser, frame)
+        assert page.find_need_element(ShopPage.FRAME), 'Iframe is not be found'
+        page.switch_to_frame(browser, ShopPage.FRAME)
 
-        page.element_click(list_of_size)
-        page.element_click(size_M)
+        page.element_click(ShopPage.CHOOSING_SIZE_BLOUSE)
+        page.element_click(ShopPage.SIZE_M_ARTICLE)
 
-        page.element_click(button_add_to_cart)
+        page.element_click(ShopPage.BUTTON_ADD_TO_CART)
         #time.sleep(10)
         page.switch_to_default_content(browser)
-        time.sleep(10)
-
-        assert page.find_need_element(window_with_added_items), 'Window with added items is not be found'
-
-        assert Constants.EXPECTED_TEXT_ABOUT_ADDING_ITEMS in page.get_elements_text(text_about_succeessful_adding), \
+        #time.sleep(10)
+        #
+        assert page.find_need_element(ShopPage.WINDOW_WITH_ADDED_ITEMS), 'Window with added items is not be found'
+        WebDriverWait(browser, 10).until(EC.visibility_of_element_located(ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING))
+        assert Constants.EXPECTED_TEXT_ABOUT_ADDING_ITEMS in page.get_elements_text(ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING), \
             f'Expected text {Constants.EXPECTED_TEXT_ABOUT_ADDING_ITEMS} is not in {page.get_elements_text(ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING)}'
 
-        assert Constants.EXPECTED_COLORS_AND_SIZE_OF_BLOUSE in page.get_elements_text(actual_col_and_size), \
-            f'Black, M != {page.get_elements_text(ShopPage.ATTRIBUTES_OF_ITEMS)}'
+        assert Constants.EXPECTED_COLORS_AND_SIZE_OF_BLOUSE in page.get_elements_text(ShopPage.ATTRIBUTES_OF_ITEMS), \
+            f'{Constants.EXPECTED_COLORS_AND_SIZE_OF_BLOUSE} != {page.get_elements_text(ShopPage.ATTRIBUTES_OF_ITEMS)}'
 
-        page.element_click(button_continue_shopping)
-        time.sleep(10)
+        page.element_click(ShopPage.BUTTON_CONTINUE_SHOPPING)
+        #time.sleep(10)
 
-
-
+    def test_add_to_cart_dress_with_definite_filter_length(self, browser):
         # new section
+        global page
         page.element_click(ShopPage.SECTION_WOMEN)
 
         page.element_click(ShopPage.CATEG_DRESSES)
-        # TODO ОТЛИЧИЕ!!!!!
-        #page.element_click(ShopPage.SUBCATEG_SUMMER_DRESSES)
+
+        page.element_click(ShopPage.SUBCATEG_SUMMER_DRESSES)
 
         page.element_click(ShopPage.CHECKBOX_OF_MIDI_DRESS)
-        time.sleep(10)
+        #time.sleep(10)
         # //span[@class]/input[@type='checkbox' and @class='checkbox' ]
         assert page.is_element_selected(ShopPage.CHECKBOX_OF_MIDI_DRESS_2), 'Length is not choosen'
         assert Constants.CHECKING_MIDI_DRESS in page.get_elements_text(ShopPage.CHOOSSING_FILTERS_LOGS), \
             f'{Constants.CHECKING_MIDI_DRESS} is not chosen'
-
-
-
-
 
         # ФРЕЙМ товара
         super().hover_to_click_hidden_button(browser, ShopPage.VIEW_PRODUCT_DRESS, ShopPage.BUTTON_QUICK_VIEW_BLOUSE)
@@ -156,11 +91,10 @@ class TestEndToEnd(TestBase):
         page.element_click(ShopPage.BUTTON_ADD_TO_CART)
         # time.sleep(10)
         page.switch_to_default_content(browser)
-        time.sleep(10)
+        #time.sleep(10)
 
         assert page.find_need_element(ShopPage.WINDOW_WITH_ADDED_ITEMS), 'Window with added items is not be found'
-
-
+        WebDriverWait(browser, 10).until(EC.visibility_of_element_located(ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING))
         assert Constants.EXPECTED_TEXT_ABOUT_ADDING_ITEMS in page.get_elements_text(ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING), \
         f'Expected text {Constants.EXPECTED_TEXT_ABOUT_ADDING_ITEMS} is not in {page.get_elements_text(ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING)}'
 
@@ -169,7 +103,6 @@ class TestEndToEnd(TestBase):
 
         page.element_click(ShopPage.BUTTON_CONTINUE_SHOPPING)
         time.sleep(10)
-        #browser.switch_to.default_content()
 
     def test_making_an_order(self):
         assert Constants.NUMBER_OF_ITEMS_IN_CART  == page.get_elements_text(ShopPage.NUMBER_ITEMS_IN_CART), \
@@ -185,16 +118,13 @@ class TestEndToEnd(TestBase):
 
         page.element_click(Cart.BUTTON_PROCEED_TO_CHECKOUT)
 
-
         page.element_click(Cart.BUTTON_PROCEED_TO_CHECKOUT_ADDRESS)
 
         page.element_click(Cart.AGREEMENT_WITH_TERMS)
 
-
         page.element_click(Cart.BUTTON_PROCEED_TO_CHECKOUT_SHIPPING)
 
         page.element_click(Cart.PAYMENT_BY_BANK_WIRE)
-
 
         page.element_click(Cart.BUTTON_CONFIRM_ORDER)
 
