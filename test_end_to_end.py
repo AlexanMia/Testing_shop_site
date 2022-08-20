@@ -1,5 +1,3 @@
-import time
-
 import pytest
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -21,15 +19,12 @@ class TestEndToEnd(TestBase):
         super().check_proper_user()
 
     def test_add_to_cart_blouse_with_definite_filter_color(self, browser):
-        global page
+
         page.element_click(ShopPage.SECTION_WOMEN)
 
         page.element_click(ShopPage.CATEG_TOPS)
 
         page.element_click(ShopPage.COLOR_BLACK)
-
-        # time.sleep(10)
-        # WebDriverWait(browser, 10).until(EC.presence_of_element_located(ShopPage.CHOOSSING_COLOR_BLACK))
 
         assert Constants.CHECKING_COLOR_BLACK.capitalize() in page.get_elements_text(ShopPage.CHOOSSING_FILTERS_LOGS), \
             f'{Constants.CHECKING_COLOR_BLACK} is not chosen'
@@ -47,10 +42,9 @@ class TestEndToEnd(TestBase):
         page.element_click(ShopPage.SIZE_M_ARTICLE)
 
         page.element_click(ShopPage.BUTTON_ADD_TO_CART)
-        #time.sleep(10)
+
         page.switch_to_default_content(browser)
-        #time.sleep(10)
-        #
+
         assert page.find_need_element(ShopPage.WINDOW_WITH_ADDED_ITEMS), 'Window with added items is not be found'
         WebDriverWait(browser, 10).until(EC.visibility_of_element_located(ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING))
         assert Constants.EXPECTED_TEXT_ABOUT_ADDING_ITEMS in page.get_elements_text(ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING), \
@@ -60,11 +54,10 @@ class TestEndToEnd(TestBase):
             f'{Constants.EXPECTED_COLORS_AND_SIZE_OF_BLOUSE} != {page.get_elements_text(ShopPage.ATTRIBUTES_OF_ITEMS)}'
 
         page.element_click(ShopPage.BUTTON_CONTINUE_SHOPPING)
-        #time.sleep(10)
 
     def test_add_to_cart_dress_with_definite_filter_length(self, browser):
         # new section
-        global page
+
         page.element_click(ShopPage.SECTION_WOMEN)
 
         page.element_click(ShopPage.CATEG_DRESSES)
@@ -72,8 +65,7 @@ class TestEndToEnd(TestBase):
         page.element_click(ShopPage.SUBCATEG_SUMMER_DRESSES)
 
         page.element_click(ShopPage.CHECKBOX_OF_MIDI_DRESS)
-        #time.sleep(10)
-        # //span[@class]/input[@type='checkbox' and @class='checkbox' ]
+
         assert page.is_element_selected(ShopPage.CHECKBOX_OF_MIDI_DRESS_2), 'Length is not choosen'
         assert Constants.CHECKING_MIDI_DRESS in page.get_elements_text(ShopPage.CHOOSSING_FILTERS_LOGS), \
             f'{Constants.CHECKING_MIDI_DRESS} is not chosen'
@@ -89,9 +81,9 @@ class TestEndToEnd(TestBase):
         page.element_click(ShopPage.COLOR_DRESS)
 
         page.element_click(ShopPage.BUTTON_ADD_TO_CART)
-        # time.sleep(10)
+
         page.switch_to_default_content(browser)
-        #time.sleep(10)
+
 
         assert page.find_need_element(ShopPage.WINDOW_WITH_ADDED_ITEMS), 'Window with added items is not be found'
         WebDriverWait(browser, 10).until(EC.visibility_of_element_located(ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING))
@@ -102,11 +94,12 @@ class TestEndToEnd(TestBase):
         f'{Constants.EXPECTED_COLORS_AND_SIZE_OF_DRESS} != {page.get_elements_text(ShopPage.ATTRIBUTES_OF_ITEMS)}'
 
         page.element_click(ShopPage.BUTTON_CONTINUE_SHOPPING)
-        time.sleep(10)
+        #time.sleep(10)
 
     def test_making_an_order(self):
         assert Constants.NUMBER_OF_ITEMS_IN_CART  == page.get_elements_text(ShopPage.NUMBER_ITEMS_IN_CART), \
-            f'the number of products does not match -> {page.get_elements_text(ShopPage.NUMBER_ITEMS_IN_CART)} != {Constants.NUMBER_OF_ITEMS_IN_CART}'
+            f'the number of products does not match -> ' \
+            f'{page.get_elements_text(ShopPage.NUMBER_ITEMS_IN_CART)} != {Constants.NUMBER_OF_ITEMS_IN_CART}'
 
         page.element_click(ShopPage.CART)
 
@@ -114,7 +107,8 @@ class TestEndToEnd(TestBase):
 
         page.element_click(Cart.INCREASE_QUANTITY_OF_DRESSES)
         assert Constants.NUMBER_OF_DRESSES_IN_CART == page.find_need_element(Cart.ACTUAL_QUANTITY).get_attribute("value"), \
-            f'the number of dresses does not match -> {page.find_need_element(Cart.ACTUAL_QUANTITY).get_attribute("value")} != {Constants.NUMBER_OF_DRESSES_IN_CART}'
+            f'the number of dresses does not match -> ' \
+            f'{page.find_need_element(Cart.ACTUAL_QUANTITY).get_attribute("value")} != {Constants.NUMBER_OF_DRESSES_IN_CART}'
 
         page.element_click(Cart.BUTTON_PROCEED_TO_CHECKOUT)
 

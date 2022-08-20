@@ -19,7 +19,6 @@ class ShopPage:
 
     VIEW_PRODUCT_TOPS = (By.CLASS_NAME, 'first-item-of-tablet-line')
     BUTTON_QUICK_VIEW_BLOUSE = (By.CLASS_NAME, 'quick-view')
-    #FRAME = (By.CSS_SELECTOR, "#fancybox-frame")
     FRAME = (By.CSS_SELECTOR, ".fancybox-inner > iframe")
 
     CHOOSING_SIZE_BLOUSE = (By.ID, 'uniform-group_1')
@@ -27,7 +26,6 @@ class ShopPage:
 
     BUTTON_ADD_TO_CART = (By.CSS_SELECTOR, ".exclusive")
     WINDOW_WITH_ADDED_ITEMS = (By.CSS_SELECTOR, "#layer_cart")
-    #TEXT_ABOUT_SUCCESSFUL_ADDING = ((By.XPATH, "//h2"))
     TEXT_ABOUT_SUCCESSFUL_ADDING = (By.XPATH, "//div[@class='layer_cart_product col-xs-12 col-md-6']/h2")
 
     ATTRIBUTES_OF_ITEMS = (By.ID, 'layer_cart_product_attributes')

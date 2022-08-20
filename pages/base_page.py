@@ -1,6 +1,3 @@
-from util.locators import ShopPage
-
-
 class BasePage:
     def __init__(self, browser, url, timeout=30):
         self.browser = browser
