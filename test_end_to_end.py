@@ -14,7 +14,7 @@ class TestEndToEnd(TestBase):
         super().open_page()
 
     def test_successful_login(self):
-        super().get_to_log_in()
+        super().log_in()
         # вынести метод сюда, если он нигде больше не будет использоваться
         super().check_proper_user()
 

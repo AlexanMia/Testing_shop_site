@@ -11,18 +11,15 @@ class TestBase:
         return page
 
     def open_page(self):
-
         page.open()
 
-    def get_to_log_in(self):
-
+    def log_in(self):
         page.element_click(MainPage.SIGNIN)
         page.enter_value_into_box(MainPage.LOG, Constants.EMAIL)
         page.enter_value_into_box(MainPage.PASSWORD, Constants.PASSWORD)
         page.element_click(MainPage.SIGNIN_BUTTON)
 
     def check_proper_user(self):
-
         assert page.get_elements_text(MainPage.NAME_USER) == Constants.NAME_USER, \
             f"User's name is not {Constants.NAME_USER}"
 
