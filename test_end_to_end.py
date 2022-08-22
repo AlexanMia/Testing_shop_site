@@ -97,7 +97,7 @@ class TestEndToEnd(TestBase):
         #time.sleep(10)
 
     def test_making_an_order(self):
-        assert Constants.NUMBER_OF_ITEMS_IN_CART  == page.get_elements_text(ShopPage.NUMBER_ITEMS_IN_CART), \
+        assert Constants.NUMBER_OF_ITEMS_IN_CART == page.get_elements_text(ShopPage.NUMBER_ITEMS_IN_CART), \
             f'the number of products does not match -> ' \
             f'{page.get_elements_text(ShopPage.NUMBER_ITEMS_IN_CART)} != {Constants.NUMBER_OF_ITEMS_IN_CART}'
 
