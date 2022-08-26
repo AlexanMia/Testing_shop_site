@@ -43,6 +43,21 @@ class ShopPage:
     NUMBER_ITEMS_IN_CART = (By.XPATH, '//a/span[@class="ajax_cart_quantity"]')
     CART = (By.XPATH, '//div/a[@title="View my shopping cart"]')
 
+    SECTION_T_SHIRTS = (By.XPATH, '//ul[@class]/li[3]/a[@title="T-shirts"]')
+    ITEM_T_SHIRT = (By.XPATH, '//li[@class]/div[@class="product-container"]')
+    BUTTON_ADD_TO_WISHLIST = (By.XPATH, '//div[@class="wishlist"]')
+    WINDOW_AND_NOTE_ADD_TO_WISHLIST = (By.XPATH, '//div[@class="fancybox-outer"]//p')
+    BUTTON_CLOSE_WINDOW_NOTE_ADD_TO_WISHLIST = (By.XPATH, '//div[@class="fancybox-wrap fancybox-desktop fancybox-type-html fancybox-opened"]//a')
+    NAME_T_SHIRT = (By.XPATH, '//h5[@itemprop="name"]/a[@class="product-name"]')
+
+    SECTION_DRESSES = (By.XPATH, '//div/ul[@class]/li[2]/a[@title="Dresses"]')
+    ITEM_DRESS = (By.XPATH, '//ul/li[@class = "ajax_block_product col-xs-12 col-sm-6 col-md-4 last-in-line first-item-of-tablet-line last-item-of-mobile-line"]/div[@class="product-container"]')
+    BUTTON_ADD_TO_WISHLIST_DRESS = (By.XPATH, '//div[@class="wishlist"]//a[@class="addToWishlist wishlistProd_5"]')
+    NAME_DRESS = (By.XPATH, '//li[@class="ajax_block_product col-xs-12 col-sm-6 col-md-4 last-in-line first-item-of-tablet-line last-item-of-mobile-line"]//h5[@itemprop="name"]/a[@class="product-name"]')
+
+    SECTION_EVENING_DRESSES = (By.XPATH, '//div[@id="subcategories"]//li//a[@title="Evening Dresses"]')
+    ITEM_EVENING_DRESS = (By.XPATH, '//li[@class="ajax_block_product col-xs-12 col-sm-6 col-md-4 first-in-line last-line first-item-of-tablet-line first-item-of-mobile-line last-mobile-line"]')
+    NAME_EVENING_DRESS = (By.XPATH, '//h5[@itemprop="name"]/a[@class="product-name"]')
 class Cart:
     BLOUSE = (By.XPATH, '//p/a[text() = "Blouse"]')
     PRINTED_CHIFFON_DRESS = (By.XPATH, '//td/p/a[text()="Printed Chiffon Dress"]')
@@ -58,6 +73,36 @@ class Cart:
     STATUS_OF_ORDER = (By.XPATH, '//tr[@class="first_item "]/td[@class="history_state"]')
     BUTTON_HOME = (By.XPATH, '//li/a[@class="btn btn-default button button-small"]/span[text()=" Home"]')
     BUTTON_PROCEED_TO_CHECKOUT_SHIPPING = (By.XPATH, '//button[@class = "button btn btn-default standard-checkout button-medium"]')
+
+
+class Wishlist:
+    ACCOUNT = (By.XPATH, '//div[@class]/a[@class="account"]')
+    BUTTON_WISHLIST = (By.XPATH, '//li[@class="lnk_wishlist"]')
+    WISHLIST = (By.XPATH, '//tr[@id]')
+    QUANTITY_OF_ITEMS = (By.XPATH, '//tr[@id]/td[@class="bold align_center"]')
+    NOTE_MY_WISHLIST = (By.XPATH, '//td[@style]/a[@href]')
+    PLACE_WITH_ALL_ITEMS_IN_WISHLIST = (By.XPATH, '//div[@class="wishlistLinkTop"]')
+    FIRST_ITEMS_T_SHIRT_IN_WISHLIST = (By.XPATH, '//li[@id="wlp_1_0"]//p[@id]')
+    SECOND_ITEMS_DRESS_IN_WISHLIST = (By.XPATH, '//li[@id="wlp_4_0"]//p[@id]')
+    THIRD_ITEMS_EVENING_DRESS_IN_WISHLIST = (By.XPATH, '//li[@id="wlp_5_0"]//p[@id]')
+
+    OPTION_QUANTITY_OF_ITEMS = (By.XPATH, '//p[@class="form-group"]/input[@id="quantity_1_0"]')
+    BUTTON_SAVE_OF_FIRST_ITEM = (By.XPATH, '//li[@id="wlp_1_0"]//div[@class="btn_action"]/a[@class="btn btn-default button button-small"]')
+
+    OPTION_PRIORITY_OF_ITEM = (By.XPATH, '//p[@class="form-group"]/select[@id="priority_4_0"]/option[@value="0"]')
+    BUTTON_SAVE_OF_SECOND_ITEM = (By.XPATH, '//li[@id="wlp_4_0"]//div[@class="btn_action"]/a[@class="btn btn-default button button-small"]')
+
+    BUTTON_DELETE_OF_THIRD_ITEM = (By.XPATH, '//li[@id="wlp_5_0"]//a[@class="lnkdel"]')
+
+    QUANTITY_OF_FIRST_ITEM = (By.XPATH, '//p[@class="form-group"]/input[@value="3"]')
+    PRIORITY_OF_SECOND_ITEM = (By.XPATH, '//p[@class="form-group"]/select[@id="priority_4_0"]/option[@selected="selected" and @value="0"]')
+    THIRD_ITEM = (By.ID, 'wlp_5_19')
+
+    BUTTON_DELETE_WISHLIST = (By.XPATH, '//td[@class="wishlist_delete"]/a')
+
+    TABLE_WISHLIST = (By.ID, 'block-history')
+
+    BUTTON_HOME = (By.XPATH, '//li[2]/a[@class="btn btn-default button button-small"]')
 
 
 

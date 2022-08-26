@@ -13,3 +13,8 @@ class Constants:
     EXPECTED_COLORS_AND_SIZE_OF_DRESS = 'Green, M'
     INFO_ABOUT_ORDER = 'Your order on My Store is complete.'
     STATUS_ORDER_TEXT = 'On backorder'
+    ADDED_TO_WISHLIST = 'Added to your wishlist.'
+    QUANTITY_ITEMS_IN_WISHLIST = '3'
+    OPTION_QUANTITY_OF_ITEM_IN_WISHLIST = '3'
+    CHANGED_QUANTITY_ITEMS_IN_WISHLIST = '4'
+    PRIORITY_HIGH = 'HIGH'

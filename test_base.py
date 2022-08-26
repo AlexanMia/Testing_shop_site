@@ -27,7 +27,6 @@ class TestBase:
         # locators of elements: hover and hidden
         hover_element = page.find_need_element(locator_hover_element)
         hidden_button = page.find_need_element(locator_hidden_element)
-
         # hover element and click hidden button
         actions = ActionChains(browser)
         actions.move_to_element(hover_element)

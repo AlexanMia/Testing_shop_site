@@ -1,3 +1,6 @@
+from selenium.common.exceptions import NoSuchElementException
+
+
 class BasePage:
     def __init__(self, browser, url, timeout=30):
         self.browser = browser
@@ -7,8 +10,18 @@ class BasePage:
     def open(self):
         self.browser.get(self.url)
 
+    def clear_value_in_box(self, locator):
+        return self.find_need_element(locator).clear()
+
     def find_need_element(self, locator):
         return self.browser.find_element(*locator)
+
+    def is_element_present(self, locator):
+        try:
+            self.browser.find_element(*locator)
+        except NoSuchElementException:
+            return False
+        return True
 
     def find_elements_all(self, locator):
         return self.browser.find_elements(*locator)
