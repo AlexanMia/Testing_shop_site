@@ -82,9 +82,10 @@ class Wishlist:
     QUANTITY_OF_ITEMS = (By.XPATH, '//tr[@id]/td[@class="bold align_center"]')
     NOTE_MY_WISHLIST = (By.XPATH, '//td[@style]/a[@href]')
     PLACE_WITH_ALL_ITEMS_IN_WISHLIST = (By.XPATH, '//div[@class="wishlistLinkTop"]')
-    FIRST_ITEMS_T_SHIRT_IN_WISHLIST = (By.XPATH, '//li[@id="wlp_1_0"]//p[@id]')
-    SECOND_ITEMS_DRESS_IN_WISHLIST = (By.XPATH, '//li[@id="wlp_4_0"]//p[@id]')
-    THIRD_ITEMS_EVENING_DRESS_IN_WISHLIST = (By.XPATH, '//li[@id="wlp_5_0"]//p[@id]')
+
+    LOCATORS_ITEMS_IN_WISHLIST = [(By.XPATH, '//li[@id="wlp_1_0"]//p[@id]'),
+                                  (By.XPATH, '//li[@id="wlp_4_0"]//p[@id]'),
+                                  (By.XPATH, '//li[@id="wlp_5_0"]//p[@id]')]
 
     OPTION_QUANTITY_OF_ITEMS = (By.XPATH, '//p[@class="form-group"]/input[@id="quantity_1_0"]')
     BUTTON_SAVE_OF_FIRST_ITEM = (By.XPATH, '//li[@id="wlp_1_0"]//div[@class="btn_action"]/a[@class="btn btn-default button button-small"]')

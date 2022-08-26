@@ -33,13 +33,13 @@ class TestEndToEnd(TestBase):
 
         assert page.find_need_element(ShopPage.FRAME), 'Iframe is not be found'
 
-        page.switch_to_frame(browser, ShopPage.FRAME)
+        page.switch_to_frame(ShopPage.FRAME)
 
         page.element_click(ShopPage.CHOOSING_SIZE_BLOUSE)
         page.element_click(ShopPage.SIZE_M_ARTICLE)
         page.element_click(ShopPage.BUTTON_ADD_TO_CART)
 
-        page.switch_to_default_content(browser)
+        page.switch_to_default_content()
 
         assert page.find_need_element(ShopPage.WINDOW_WITH_ADDED_ITEMS), 'Window with added items is not be found'
         WebDriverWait(browser, 10).until(EC.visibility_of_element_located(ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING))
@@ -64,14 +64,14 @@ class TestEndToEnd(TestBase):
         super().hover_to_click_hidden_button(browser, ShopPage.VIEW_PRODUCT_DRESS, ShopPage.BUTTON_QUICK_VIEW_BLOUSE)
 
         assert page.find_need_element(ShopPage.FRAME), 'Iframe is not be found'
-        page.switch_to_frame(browser, ShopPage.FRAME)
+        page.switch_to_frame(ShopPage.FRAME)
 
         page.element_click(ShopPage.CHOOSING_SIZE_DRESS)
         page.element_click(ShopPage.SIZE_M_ARTICLE)
         page.element_click(ShopPage.COLOR_DRESS)
         page.element_click(ShopPage.BUTTON_ADD_TO_CART)
 
-        page.switch_to_default_content(browser)
+        page.switch_to_default_content()
 
 
         assert page.find_need_element(ShopPage.WINDOW_WITH_ADDED_ITEMS), 'Window with added items is not be found'

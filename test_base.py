@@ -1,4 +1,6 @@
 from selenium.webdriver import ActionChains
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from pages.base_page import BasePage
 from util.constants import Constants
 from util.locators import MainPage
@@ -32,4 +34,16 @@ class TestBase:
         actions.move_to_element(hover_element)
         actions.click(hidden_button)
         actions.perform()
+
+    def wait_presence_element(self, browser, locator):
+        WebDriverWait(browser, 15).until(EC.presence_of_element_located(locator))
+
+    def wait_until_not_presence_element(self, browser, locator):
+        WebDriverWait(browser, 10).until_not(EC.presence_of_element_located(locator))
+    def refresh_page(self, browser):
+        browser.refresh()
+
+
+    def switch_to_alert_and_accept(self, browser):
+        browser.switch_to.alert.accept()
 
