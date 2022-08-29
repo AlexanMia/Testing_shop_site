@@ -6,16 +6,15 @@ from util.locators import ShopPage, Cart
 
 class TestEndToEnd(TestBase):
     @pytest.fixture(scope='class', autouse=True)
-    def open_site(self, browser):
+    def env_preparation(self):
         global page
-        page = super().init_page(browser)
-        super().open_page()
+        page = super().get_page()
 
     def test_successful_login(self):
         super().log_in()
         super().check_proper_user()
 
-    def test_add_to_cart_blouse_with_definite_filter_color(self, browser):
+    def test_add_to_cart_blouse_with_definite_filter_color(self):
         page.element_click(ShopPage.SECTION_WOMEN)
         page.element_click(ShopPage.CATEG_TOPS)
         page.element_click(ShopPage.COLOR_BLACK)
@@ -27,7 +26,7 @@ class TestEndToEnd(TestBase):
         f'Choosing Color is not {Constants.CHECKING_COLOR_BLACK}'
 
         # Frame
-        super().hover_to_click_hidden_button(browser, ShopPage.VIEW_PRODUCT_TOPS, ShopPage.BUTTON_QUICK_VIEW_BLOUSE)
+        super().hover_to_click_hidden_button(ShopPage.VIEW_PRODUCT_TOPS, ShopPage.BUTTON_QUICK_VIEW_BLOUSE)
 
         assert page.find_need_element(ShopPage.FRAME), 'Iframe is not be found'
 
@@ -40,7 +39,7 @@ class TestEndToEnd(TestBase):
         page.switch_to_default_content()
 
         assert page.find_need_element(ShopPage.WINDOW_WITH_ADDED_ITEMS), 'Window with added items is not be found'
-        super().wait_visibility_element(browser, ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING)
+        super().wait_visibility_element(ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING)
         assert Constants.EXPECTED_TEXT_ABOUT_ADDING_ITEMS in page.get_elements_text(ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING), \
             f'Expected text {Constants.EXPECTED_TEXT_ABOUT_ADDING_ITEMS} is not in {page.get_elements_text(ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING)}'
         assert Constants.EXPECTED_COLORS_AND_SIZE_OF_BLOUSE in page.get_elements_text(ShopPage.ATTRIBUTES_OF_ITEMS), \
@@ -48,7 +47,7 @@ class TestEndToEnd(TestBase):
 
         page.element_click(ShopPage.BUTTON_CONTINUE_SHOPPING)
 
-    def test_add_to_cart_dress_with_definite_filter_length(self, browser):
+    def test_add_to_cart_dress_with_definite_filter_length(self):
         page.element_click(ShopPage.SECTION_WOMEN)
         page.element_click(ShopPage.CATEG_DRESSES)
         page.element_click(ShopPage.SUBCATEG_SUMMER_DRESSES)
@@ -59,7 +58,7 @@ class TestEndToEnd(TestBase):
             f'{Constants.CHECKING_MIDI_DRESS} is not chosen'
 
         # Frame
-        super().hover_to_click_hidden_button(browser, ShopPage.VIEW_PRODUCT_DRESS, ShopPage.BUTTON_QUICK_VIEW_BLOUSE)
+        super().hover_to_click_hidden_button(ShopPage.VIEW_PRODUCT_DRESS, ShopPage.BUTTON_QUICK_VIEW_BLOUSE)
 
         assert page.find_need_element(ShopPage.FRAME), 'Iframe is not be found'
         page.switch_to_frame(ShopPage.FRAME)
@@ -72,7 +71,7 @@ class TestEndToEnd(TestBase):
         page.switch_to_default_content()
 
         assert page.find_need_element(ShopPage.WINDOW_WITH_ADDED_ITEMS), 'Window with added items is not be found'
-        super().wait_visibility_element(browser, ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING)
+        super().wait_visibility_element(ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING)
         assert Constants.EXPECTED_TEXT_ABOUT_ADDING_ITEMS in page.get_elements_text(ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING), \
         f'Expected text {Constants.EXPECTED_TEXT_ABOUT_ADDING_ITEMS} is not in {page.get_elements_text(ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING)}'
         assert Constants.EXPECTED_COLORS_AND_SIZE_OF_DRESS in page.get_elements_text(ShopPage.ATTRIBUTES_OF_ITEMS), \
