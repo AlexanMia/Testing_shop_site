@@ -16,20 +16,24 @@ class TestBase:
         page = BasePage(browser, Constants.link_site)
         page.open()
 
-    def get_page(self):
+    @staticmethod
+    def get_page():
         return page
 
-    def log_in(self):
+    @staticmethod
+    def log_in():
         page.element_click(MainPage.SIGNIN)
         page.enter_value_into_box(MainPage.LOG, Constants.EMAIL)
         page.enter_value_into_box(MainPage.PASSWORD, Constants.PASSWORD)
         page.element_click(MainPage.SIGNIN_BUTTON)
 
-    def check_proper_user(self):
+    @staticmethod
+    def check_proper_user():
         assert page.get_elements_text(MainPage.NAME_USER) == Constants.NAME_USER, \
             f"User's name is not {Constants.NAME_USER}"
 
-    def hover_to_click_hidden_button(self, locator_hover_element, locator_hidden_element):
+    @staticmethod
+    def hover_to_click_hidden_button(locator_hover_element, locator_hidden_element):
         # locators of elements: hover and hidden
         hover_element = page.find_need_element(locator_hover_element)
         hidden_button = page.find_need_element(locator_hidden_element)
@@ -39,17 +43,23 @@ class TestBase:
         actions.click(hidden_button)
         actions.perform()
 
-    def wait_presence_element(self, locator):
+    @staticmethod
+    def wait_presence_element(locator):
         WebDriverWait(browser, 15).until(EC.presence_of_element_located(locator))
 
-    def wait_until_not_presence_element(self, locator):
+    @staticmethod
+    def wait_until_not_presence_element(locator):
         WebDriverWait(browser, 10).until_not(EC.presence_of_element_located(locator))
-    def refresh_page(self):
+
+    @staticmethod
+    def refresh_page():
         browser.refresh()
 
-    def switch_to_alert_and_accept(self):
+    @staticmethod
+    def switch_to_alert_and_accept():
         browser.switch_to.alert.accept()
 
-    def wait_visibility_element(self, locator):
+    @staticmethod
+    def wait_visibility_element(locator):
         WebDriverWait(browser, 10).until(EC.visibility_of_element_located(locator))
 
