@@ -1,6 +1,4 @@
 import pytest
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from test_base import TestBase
 from util.constants import Constants
 from util.locators import ShopPage, Cart
@@ -28,7 +26,7 @@ class TestEndToEnd(TestBase):
         assert Constants.CHECKING_COLOR_BLACK in page.find_need_element(ShopPage.COLOR_BLACK_PRODUCT).get_attribute('href'), \
         f'Choosing Color is not {Constants.CHECKING_COLOR_BLACK}'
 
-        # ФРЕЙМ товара
+        # Frame
         super().hover_to_click_hidden_button(browser, ShopPage.VIEW_PRODUCT_TOPS, ShopPage.BUTTON_QUICK_VIEW_BLOUSE)
 
         assert page.find_need_element(ShopPage.FRAME), 'Iframe is not be found'
@@ -42,7 +40,7 @@ class TestEndToEnd(TestBase):
         page.switch_to_default_content()
 
         assert page.find_need_element(ShopPage.WINDOW_WITH_ADDED_ITEMS), 'Window with added items is not be found'
-        WebDriverWait(browser, 10).until(EC.visibility_of_element_located(ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING))
+        super().wait_visibility_element(browser, ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING)
         assert Constants.EXPECTED_TEXT_ABOUT_ADDING_ITEMS in page.get_elements_text(ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING), \
             f'Expected text {Constants.EXPECTED_TEXT_ABOUT_ADDING_ITEMS} is not in {page.get_elements_text(ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING)}'
         assert Constants.EXPECTED_COLORS_AND_SIZE_OF_BLOUSE in page.get_elements_text(ShopPage.ATTRIBUTES_OF_ITEMS), \
@@ -60,7 +58,7 @@ class TestEndToEnd(TestBase):
         assert Constants.CHECKING_MIDI_DRESS in page.get_elements_text(ShopPage.CHOOSSING_FILTERS_LOGS), \
             f'{Constants.CHECKING_MIDI_DRESS} is not chosen'
 
-        # ФРЕЙМ товара
+        # Frame
         super().hover_to_click_hidden_button(browser, ShopPage.VIEW_PRODUCT_DRESS, ShopPage.BUTTON_QUICK_VIEW_BLOUSE)
 
         assert page.find_need_element(ShopPage.FRAME), 'Iframe is not be found'
@@ -73,9 +71,8 @@ class TestEndToEnd(TestBase):
 
         page.switch_to_default_content()
 
-
         assert page.find_need_element(ShopPage.WINDOW_WITH_ADDED_ITEMS), 'Window with added items is not be found'
-        WebDriverWait(browser, 10).until(EC.visibility_of_element_located(ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING))
+        super().wait_visibility_element(browser, ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING)
         assert Constants.EXPECTED_TEXT_ABOUT_ADDING_ITEMS in page.get_elements_text(ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING), \
         f'Expected text {Constants.EXPECTED_TEXT_ABOUT_ADDING_ITEMS} is not in {page.get_elements_text(ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING)}'
         assert Constants.EXPECTED_COLORS_AND_SIZE_OF_DRESS in page.get_elements_text(ShopPage.ATTRIBUTES_OF_ITEMS), \

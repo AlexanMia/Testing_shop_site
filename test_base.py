@@ -43,7 +43,8 @@ class TestBase:
     def refresh_page(self, browser):
         browser.refresh()
 
-
     def switch_to_alert_and_accept(self, browser):
         browser.switch_to.alert.accept()
 
+    def wait_visibility_element(self, browser, locator):
+        WebDriverWait(browser, 10).until(EC.visibility_of_element_located(locator))
