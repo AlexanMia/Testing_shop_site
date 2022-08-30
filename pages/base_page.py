@@ -44,4 +44,3 @@ class BasePage:
 
     def is_element_selected(self, locator):
         return self.find_need_element(locator).is_selected()
-

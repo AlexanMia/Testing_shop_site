@@ -22,8 +22,9 @@ class TestEndToEnd(TestBase):
         assert Constants.CHECKING_COLOR_BLACK.capitalize() in page.get_elements_text(ShopPage.CHOOSSING_FILTERS_LOGS), \
             f'{Constants.CHECKING_COLOR_BLACK} is not chosen'
 
-        assert Constants.CHECKING_COLOR_BLACK in page.find_need_element(ShopPage.COLOR_BLACK_PRODUCT).get_attribute('href'), \
-        f'Choosing Color is not {Constants.CHECKING_COLOR_BLACK}'
+        assert Constants.CHECKING_COLOR_BLACK in page.find_need_element(ShopPage.COLOR_BLACK_PRODUCT).get_attribute(
+            'href'), \
+            f'Choosing Color is not {Constants.CHECKING_COLOR_BLACK}'
 
         # Frame
         super().hover_to_click_hidden_button(ShopPage.VIEW_PRODUCT_TOPS, ShopPage.BUTTON_QUICK_VIEW_BLOUSE)
@@ -40,7 +41,8 @@ class TestEndToEnd(TestBase):
 
         assert page.find_need_element(ShopPage.WINDOW_WITH_ADDED_ITEMS), 'Window with added items is not be found'
         super().wait_visibility_element(ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING)
-        assert Constants.EXPECTED_TEXT_ABOUT_ADDING_ITEMS in page.get_elements_text(ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING), \
+        assert Constants.EXPECTED_TEXT_ABOUT_ADDING_ITEMS in page.get_elements_text(
+            ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING), \
             f'Expected text {Constants.EXPECTED_TEXT_ABOUT_ADDING_ITEMS} is not in {page.get_elements_text(ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING)}'
         assert Constants.EXPECTED_COLORS_AND_SIZE_OF_BLOUSE in page.get_elements_text(ShopPage.ATTRIBUTES_OF_ITEMS), \
             f'{Constants.EXPECTED_COLORS_AND_SIZE_OF_BLOUSE} != {page.get_elements_text(ShopPage.ATTRIBUTES_OF_ITEMS)}'
@@ -72,10 +74,11 @@ class TestEndToEnd(TestBase):
 
         assert page.find_need_element(ShopPage.WINDOW_WITH_ADDED_ITEMS), 'Window with added items is not be found'
         super().wait_visibility_element(ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING)
-        assert Constants.EXPECTED_TEXT_ABOUT_ADDING_ITEMS in page.get_elements_text(ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING), \
-        f'Expected text {Constants.EXPECTED_TEXT_ABOUT_ADDING_ITEMS} is not in {page.get_elements_text(ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING)}'
+        assert Constants.EXPECTED_TEXT_ABOUT_ADDING_ITEMS in page.get_elements_text(
+            ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING), \
+            f'Expected text {Constants.EXPECTED_TEXT_ABOUT_ADDING_ITEMS} is not in {page.get_elements_text(ShopPage.TEXT_ABOUT_SUCCESSFUL_ADDING)}'
         assert Constants.EXPECTED_COLORS_AND_SIZE_OF_DRESS in page.get_elements_text(ShopPage.ATTRIBUTES_OF_ITEMS), \
-        f'{Constants.EXPECTED_COLORS_AND_SIZE_OF_DRESS} != {page.get_elements_text(ShopPage.ATTRIBUTES_OF_ITEMS)}'
+            f'{Constants.EXPECTED_COLORS_AND_SIZE_OF_DRESS} != {page.get_elements_text(ShopPage.ATTRIBUTES_OF_ITEMS)}'
 
         page.element_click(ShopPage.BUTTON_CONTINUE_SHOPPING)
 
@@ -90,7 +93,8 @@ class TestEndToEnd(TestBase):
 
         page.element_click(Cart.INCREASE_QUANTITY_OF_DRESSES)
 
-        assert Constants.NUMBER_OF_DRESSES_IN_CART == page.find_need_element(Cart.ACTUAL_QUANTITY).get_attribute("value"), \
+        assert Constants.NUMBER_OF_DRESSES_IN_CART == page.find_need_element(Cart.ACTUAL_QUANTITY).get_attribute(
+            "value"), \
             f'the number of dresses does not match -> ' \
             f'{page.find_need_element(Cart.ACTUAL_QUANTITY).get_attribute("value")} != {Constants.NUMBER_OF_DRESSES_IN_CART}'
 

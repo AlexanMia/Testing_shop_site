@@ -16,13 +16,15 @@ class TestModuleWishlist(TestBase):
         super().log_in()
         super().check_proper_user()
 
-    testdata = [(ShopPage.SECTION_T_SHIRTS, ShopPage.ITEM_T_SHIRT, ShopPage.BUTTON_ADD_TO_WISHLIST, ShopPage.NAME_T_SHIRT),
-                (ShopPage.SECTION_DRESSES, ShopPage.ITEM_DRESS, ShopPage.BUTTON_ADD_TO_WISHLIST_DRESS, ShopPage.NAME_DRESS),
-                (ShopPage.SECTION_EVENING_DRESSES, ShopPage.ITEM_EVENING_DRESS, ShopPage.BUTTON_ADD_TO_WISHLIST, ShopPage.NAME_EVENING_DRESS)]
+    testdata = [
+        (ShopPage.SECTION_T_SHIRTS, ShopPage.ITEM_T_SHIRT, ShopPage.BUTTON_ADD_TO_WISHLIST, ShopPage.NAME_T_SHIRT),
+        (ShopPage.SECTION_DRESSES, ShopPage.ITEM_DRESS, ShopPage.BUTTON_ADD_TO_WISHLIST_DRESS, ShopPage.NAME_DRESS),
+        (ShopPage.SECTION_EVENING_DRESSES, ShopPage.ITEM_EVENING_DRESS, ShopPage.BUTTON_ADD_TO_WISHLIST,
+         ShopPage.NAME_EVENING_DRESS)]
 
     @pytest.mark.parametrize('section, '
                              'loc_item, '
-                             'button_add_to_wishlist, '                                                       
+                             'button_add_to_wishlist, '
                              'name_item',
                              testdata)
     def test_adding_items_in_wishlist(self,

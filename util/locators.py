@@ -8,6 +8,7 @@ class MainPage:
     SIGNIN_BUTTON = (By.ID, 'SubmitLogin')
     NAME_USER = (By.CLASS_NAME, 'header_user_info')
 
+
 class ShopPage:
     SECTION_WOMEN = (By.XPATH, "//a[text()='Women']")
 
@@ -58,6 +59,8 @@ class ShopPage:
     SECTION_EVENING_DRESSES = (By.XPATH, '//div[@id="subcategories"]//li//a[@title="Evening Dresses"]')
     ITEM_EVENING_DRESS = (By.XPATH, '//li[@class="ajax_block_product col-xs-12 col-sm-6 col-md-4 first-in-line last-line first-item-of-tablet-line first-item-of-mobile-line last-mobile-line"]')
     NAME_EVENING_DRESS = (By.XPATH, '//h5[@itemprop="name"]/a[@class="product-name"]')
+
+
 class Cart:
     BLOUSE = (By.XPATH, '//p/a[text() = "Blouse"]')
     PRINTED_CHIFFON_DRESS = (By.XPATH, '//td/p/a[text()="Printed Chiffon Dress"]')
@@ -72,7 +75,8 @@ class Cart:
     BUTTON_BACK_TO_ORDERS = (By.XPATH, '//a[@class = "button-exclusive btn btn-default"]')
     STATUS_OF_ORDER = (By.XPATH, '//tr[@class="first_item "]/td[@class="history_state"]')
     BUTTON_HOME = (By.XPATH, '//li/a[@class="btn btn-default button button-small"]/span[text()=" Home"]')
-    BUTTON_PROCEED_TO_CHECKOUT_SHIPPING = (By.XPATH, '//button[@class = "button btn btn-default standard-checkout button-medium"]')
+    BUTTON_PROCEED_TO_CHECKOUT_SHIPPING = (
+    By.XPATH, '//button[@class = "button btn btn-default standard-checkout button-medium"]')
 
 
 class Wishlist:
