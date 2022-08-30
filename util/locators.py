@@ -22,7 +22,7 @@ class ShopPage:
     FRAME = (By.CSS_SELECTOR, ".fancybox-inner > iframe")
 
     CHOOSING_SIZE_BLOUSE = (By.ID, 'uniform-group_1')
-    SIZE_M_ARTICLE = ((By.XPATH, "//option[@title='M']"))
+    SIZE_M_ARTICLE = (By.XPATH, "//option[@title='M']")
 
     BUTTON_ADD_TO_CART = (By.CSS_SELECTOR, ".exclusive")
     WINDOW_WITH_ADDED_ITEMS = (By.CSS_SELECTOR, "#layer_cart")
@@ -35,7 +35,7 @@ class ShopPage:
     SUBCATEG_SUMMER_DRESSES = (By.XPATH, "//div/a[@title='Summer Dresses']")
     CHECKBOX_OF_MIDI_DRESS = (By.ID, 'uniform-layered_id_feature_20')
     CHECKBOX_OF_MIDI_DRESS_2 = (By.XPATH, "//span[@class]/input[@type='checkbox' and @class='checkbox']")
-    VIEW_PRODUCT_DRESS = ((By.CLASS_NAME, 'first-item-of-tablet-line'))
+    VIEW_PRODUCT_DRESS = (By.CLASS_NAME, 'first-item-of-tablet-line')
     CHOOSING_SIZE_DRESS = (By.ID, 'group_1')
 
     COLOR_DRESS = (By.ID, 'color_15')
@@ -78,7 +78,7 @@ class Cart:
 class Wishlist:
     ACCOUNT = (By.XPATH, '//div[@class]/a[@class="account"]')
     BUTTON_WISHLIST = (By.XPATH, '//li[@class="lnk_wishlist"]')
-    WISHLIST = (By.XPATH, '//tr[@id]')
+    WISHLIST_TABLE = (By.XPATH, '//tr[@id]')
     QUANTITY_OF_ITEMS = (By.XPATH, '//tr[@id]/td[@class="bold align_center"]')
     NOTE_MY_WISHLIST = (By.XPATH, '//td[@style]/a[@href]')
     PLACE_WITH_ALL_ITEMS_IN_WISHLIST = (By.XPATH, '//div[@class="wishlistLinkTop"]')
@@ -104,13 +104,3 @@ class Wishlist:
     TABLE_WISHLIST = (By.ID, 'block-history')
 
     BUTTON_HOME = (By.XPATH, '//li[2]/a[@class="btn btn-default button button-small"]')
-
-
-
-
-
-
-
-
-
-

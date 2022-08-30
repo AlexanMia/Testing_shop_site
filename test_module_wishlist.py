@@ -44,7 +44,7 @@ class TestModuleWishlist(TestBase):
         page.element_click(Wishlist.ACCOUNT)
         page.element_click(Wishlist.BUTTON_WISHLIST)
 
-        assert page.find_need_element(Wishlist.WISHLIST), 'Wishlist can\'t be found'
+        assert page.find_need_element(Wishlist.WISHLIST_TABLE), 'Wishlist can\'t be found'
         assert page.get_elements_text(Wishlist.QUANTITY_OF_ITEMS) == Constants.QUANTITY_ITEMS_IN_WISHLIST, \
             f'Expected quantity {Constants.QUANTITY_ITEMS_IN_WISHLIST} is not equal actual {page.get_elements_text(Wishlist.QUANTITY_OF_ITEMS)}'
 
@@ -86,4 +86,3 @@ class TestModuleWishlist(TestBase):
         assert not page.is_element_present(Wishlist.TABLE_WISHLIST), 'Wishlist is not deleted'
 
         page.element_click(Wishlist.BUTTON_HOME)
-        # END

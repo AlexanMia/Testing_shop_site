@@ -110,15 +110,3 @@ class TestEndToEnd(TestBase):
             f'Expected status {Constants.STATUS_ORDER_TEXT} is not equal actual status {page.get_elements_text(Cart.STATUS_OF_ORDER)}'
 
         page.element_click(Cart.BUTTON_HOME)
-
-
-
-
-
-
-
-
-
-
-
-
