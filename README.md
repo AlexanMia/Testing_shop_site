@@ -4,7 +4,7 @@ Resource: http://automationpractice.com/index.php
 
 Tests are implemented:
 
-1. End-to-end suit has steps:
+1. End-to-end suite has steps:
     - log in
     - adding items in cart with definite filters
     - checking items in cart
