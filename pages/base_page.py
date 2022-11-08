@@ -1,4 +1,7 @@
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver import ActionChains
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
 
 
 class BasePage:
@@ -44,3 +47,27 @@ class BasePage:
 
     def is_element_selected(self, locator):
         return self.find_need_element(locator).is_selected()
+
+    def hover_to_click_hidden_button(self, locator_hover_element, locator_hidden_element):
+        hover_element = self.find_need_element(locator_hover_element)
+        hidden_button = self.find_need_element(locator_hidden_element)
+        # hover element and click hidden button
+        actions = ActionChains(self.browser)
+        actions.move_to_element(hover_element)
+        actions.click(hidden_button)
+        actions.perform()
+
+    def wait_visibility_element(self, locator):
+        WebDriverWait(self.browser, 60).until(EC.visibility_of_element_located(locator))
+
+    def wait_presence_element(self, locator):
+        WebDriverWait(self.browser, 15).until(EC.presence_of_element_located(locator))
+
+    def refresh_page(self):
+        self.browser.refresh()
+
+    def switch_to_alert_and_accept(self):
+        self.browser.switch_to.alert.accept()
+
+    def wait_until_not_presence_element(self, locator):
+        WebDriverWait(self.browser, 10).until_not(EC.presence_of_element_located(locator))
